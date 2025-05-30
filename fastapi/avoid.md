@@ -1,0 +1,1 @@
+<!--common errors to avoid-->
