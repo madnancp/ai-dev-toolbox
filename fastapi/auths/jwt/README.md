@@ -29,3 +29,21 @@ and it send to server with the request header
 ### In Python
 
 - use `python-jose` library for better overall.
+
+```python
+from jose import jwt
+
+EXPIRE = timedelta(minutes=3)
+ALGORITHM = "HS256"
+SECRET_KEY = "kjclsfh3wiehvskjdzbvkllkjszxfoewi
+data = {"sub": "john wick will come for you!", "exp": EXPIRE}
+
+jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+```
+
+> - The `ALGORITHM` we mention it only for `signature` section encoding.
+> - `header` & `payload` are strictly encode with `BASE64URL` algorithm.
+> - And `header` & `payload` anyone can decode.
+> - But, server validation are happend using `signature`.
+> - In order to decode `signature` section, we need the `SECRET_KEY`
+> - And `signature` section encode with the `ALGORITHM` that we mentioned.
