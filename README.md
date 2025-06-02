@@ -1,2 +1,5 @@
-# ai-dev-toolbox
-a living repo with all tool for building ai-systems and my key note on them.
+# Tools to cover-up
+
+- [ ] Backend & Auth : *currently doing*
+- [ ] `Model Integration` & Local `Inference`
+- [ ] `CI/CD` Tools
