@@ -8,3 +8,9 @@ That works when `php` application are trending.
     - need to store session info on db.
     - and more...
 - Current scenario mostly using `Token Based` authentication.
+
+> [!NOTE]
+> - `Authentication` : check who the user is, is a valid user. (in login)
+> - `Authorization` : check what the user can access. (in resource access)
+
+
