@@ -1,7 +1,7 @@
 from jose import JWTError
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from demo.token import (
+from jwt.token import (
     generate_access_token,
     decode_token,
     hash_password,
