@@ -1,7 +1,7 @@
 # Topics to cover
 
-- [ ] `jwt` authentication.
-- [ ] Different type of `tokens` in jwt.
+- [x] `jwt` authentication.
+- [x] Different type of `tokens` in jwt.
 - [ ] `Dependency` Injection.
 - [ ] API `versioning`.
 - [ ] Understand `Makefile`.
