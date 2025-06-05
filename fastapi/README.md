@@ -5,6 +5,5 @@
 - [x] `Dependency` Injection.
 - [x] API `versioning`.
 - [x] Understand `Makefile`.
-- [ ] `Websocket` + Realtime API.
+- [x] `Websocket` + Realtime API.
 - [ ] Handling `long time` processes.
-- [ ] `Pydantic` schemas.

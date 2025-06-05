@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div
+      class="container d-flex align-items-center justify-content-center flex-column"
+      style="height: 100vh"
+    >
+      <div>
+        <input type="text" id="message" />
+        <button class="btn btn-primary" id="send-btn">send</button>
+      </div>
+      <pre id="status"></pre>
+
+      <div id="log"></div>
+    </div>
+
+    <script>
+      const socket = new WebSocket("ws://localhost:8000/ws");
+
+      // set status of the socket connection
+
+      const statusInd = document.getElementById("status");
+
+      socket.onopen = () => {
+        statusInd.className = "text-success";
+        statusInd.innerText = "Connected!";
+      };
+
+      socket.onclose = () => {
+        statusInd.className = "text-danger";
+        statusInd.innerText = "Disconnected!";
+      };
+
+      const message = document.getElementById("message");
+      const log = document.getElementById("log");
+      const sndBtn = document.getElementById("send-btn");
+
+      sndBtn.addEventListener("click", () => {
+        socket.send(message.value);
+        socket.onmessage = (result) => {
+          log.classList.add("alert");
+          log.classList.add("alert-primary");
+          log.innerText = result.data;
+        };
+        message.value = "";
+      });
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
