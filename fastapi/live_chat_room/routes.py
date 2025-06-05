@@ -12,7 +12,6 @@ router = APIRouter()
 def login(user: UserSchema, session: Session = Depends((get_session))):
     avail_user = session.query(UserModel).filter(UserModel.name == user.name).first()
     if not avail_user:
-        print(f"no user found man {avail_user}")
         raise HTTPException(status_code=401, detail="authorization error!")
 
     is_pass_match = verifiy_passwd(passwd=user.password, hash=avail_user.password)
