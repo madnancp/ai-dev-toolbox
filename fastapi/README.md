@@ -6,4 +6,4 @@
 - [x] API `versioning`.
 - [x] Understand `Makefile`.
 - [x] `Websocket` + Realtime API.
-- [ ] Handling `long time` processes.
+- [ ] `live-chat-room` project.
