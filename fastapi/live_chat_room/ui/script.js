@@ -34,10 +34,54 @@ loginForm.addEventListener("submit", (event) => {
       password,
     }),
   })
-    .then((response) => response.json())
-    .then((data) => {
+    .then((response) => {
+      if (!response.ok) {
+        return alert(`HTTP error status : ${response.status}`);
+      }
       loginForm.reset();
+      return response.json();
+    })
+    .then((data) => {
+      location.replace("dashboard.html");
+    })
+    .catch((err) => console.error(err));
+});
+
+signupForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(signupForm);
+
+  const name = formData.get("name");
+  const password = formData.get("password");
+  console.log({ name, password });
+
+  fetch("http://localhost:8000/api/v1/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      password,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        return alert(`HTTP error status : ${response.status}`);
+      }
+      loginForm.reset();
+      return response.json();
+    })
+    .then((data) => {
       console.log(data);
     })
     .catch((err) => console.error(err));
 });
+
+const currentLocation = location.href;
+if (currentLocation.includes("index.html")) {
+  console.log("login url appear");
+} else {
+  console.log("login not appear");
+}
