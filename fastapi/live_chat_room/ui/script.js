@@ -1,3 +1,25 @@
+// check is user authenticated
+const isAuthenticated = async () => {
+  const currentLocation = location.href;
+
+  if (!currentLocation.includes("index.html")) {
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/show", {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        console.log("response not ok, redirecting");
+        window.location.href = "/index.html";
+        throw new Error(`HTTP erro ${response.status}`);
+      }
+    } catch (err) {
+      console.error(`Error occured in token checking ${err}`);
+    }
+  }
+};
+
+isAuthenticated();
+
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 const goToSignUp = document.getElementById("go-to-signup");
@@ -47,8 +69,6 @@ if (loginForm && signupForm) {
       .then((data) => {
         location.replace("dashboard.html");
         console.log(`response : ${data}`);
-        document.cookie = `token=${data.access_token}`;
-        localStorage.setItem("token", data.access_token);
         loginForm.reset();
       })
       .catch((err) => console.error(err));
@@ -109,10 +129,3 @@ if (logoutBtn) {
       .catch((err) => console.error(err));
   });
 }
-
-// const currentLocation = location.href;
-// if (currentLocation.includes("index.html")) {
-//   console.log("login url appear");
-// } else {
-//   console.log("login not appear");
-// }

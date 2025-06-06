@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Cookie, Response
 from fastapi.responses import JSONResponse
-from sqlalchemy import JSON
 from sqlalchemy.orm import Session
 from live_chat_room.schemas import UserSchema
 from live_chat_room.db import get_session
