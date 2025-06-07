@@ -14,13 +14,26 @@
     </nav>
     <button class="btn btn-outline-danger" id="logout-btn" type="button">logout</button>
     <section
-      class="container d-flex justify-content-center align-items-center flex-columns"
+      class="container d-flex justify-content-center align-items-center flex-column"
       style="height: 100vh"
     >
 
-    <h2>
-      welcome to dashboard
-    </h2>
+    <form id="messageForm">
+      <div>
+        <input type="text" id="message" placeholder="Type Message..."/>
+      </div>
+
+      <div>
+        <button class="btn btn-primary" id="msgSubmitBtn" value="submit">send</button>
+      </div>
+    </form>
+
+    <div>
+      status <pre id="ws-status" class="d-flex"></pre>
+    </div>
+
+    <div id="output"></div>
+
     </section>
     <script src="script.js"></script>
     <script

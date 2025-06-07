@@ -115,7 +115,7 @@ const isAuthenticated = async () => {
 
   if (!currentLocation.includes("index.html")) {
     try {
-      const response = await fetch("http://localhost:8000/api/v1/show", {
+      const response = await fetch("http://localhost:8000/api/v1/user/me", {
         credentials: "include",
       });
       if (!response.ok) {
@@ -130,3 +130,48 @@ const isAuthenticated = async () => {
 };
 
 isAuthenticated();
+
+// websocket connection
+let ws;
+
+const wsConnection = () => {
+  const conStatus = document.getElementById("ws-status");
+
+  if (!ws) {
+    console.log("it initializing new ws client");
+    ws = new WebSocket("ws://localhost:8000/api/v1/chat");
+  }
+
+  ws.onopen = () => {
+    conStatus.innerText = "connected";
+    conStatus.classList.add("text-success");
+  };
+
+  ws.onclose = () => {
+    conStatus.classList.add("text-danger");
+    conStatus.innerText = "Disconnected";
+  };
+};
+
+wsConnection();
+
+const msgInput = document.getElementById("message");
+const msgForm = document.getElementById("messageForm");
+const output = document.getElementById("output");
+
+console.log(msgForm);
+if (msgForm) {
+  msgForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    ws.send(msgInput.value);
+
+    ws.onmessage = (data) => {
+      console.log(data.data);
+      const new_div = document.createElement("div");
+      new_div.innerText = data.data;
+      new_div.classList.add("alert");
+      new_div.classList.add("alert-primary");
+      output.appendChild(new_div);
+    };
+  });
+}

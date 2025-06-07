@@ -1,8 +1,8 @@
+from datetime import datetime
 from fastapi import (
     APIRouter,
     Depends,
     HTTPException,
-    Request,
     status,
     Cookie,
     Response,
@@ -98,8 +98,11 @@ async def chat(socket: WebSocket):
     try:
         while True:
             data = await socket.receive_text()
-            await ws_manager.broadcast(data)
-    except WebSocketDisconnect:
+            await ws_manager.broadcast(
+                f"From a client : {data}, at : {datetime.utcnow()}"
+            )
+    except WebSocketDisconnect as e:
+        ws_manager.remove_connection(socket)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="ws connection refused"
         )
