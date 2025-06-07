@@ -1,10 +1,9 @@
 from datetime import datetime, timedelta
 from passlib.context import CryptContext
-from secrets import token_urlsafe
 from jose import jwt
 
 
-SECRET_KEY: str = token_urlsafe(32)
+SECRET_KEY: str = "ybUR6k3egAfGlOt9VbYOx-qG4m6KEPeb7N5AWmWCl2E"
 ACCESS_TOKEN_EXPIRE_MINUTES: int = 10
 ALGORITHM: str = "HS256"
 
@@ -25,5 +24,5 @@ def gen_access_token(data: dict) -> str:
     return jwt.encode(claims=data, algorithm=ALGORITHM, key=SECRET_KEY)
 
 
-def decode_access_token(token: str) -> dict:
+def decode_access_token(token: str) -> str:
     return jwt.decode(token=token, key=SECRET_KEY, algorithms=[ALGORITHM])["sub"]

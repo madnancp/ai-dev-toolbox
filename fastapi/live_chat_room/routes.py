@@ -1,15 +1,34 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Cookie, Response
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException,
+    Request,
+    status,
+    Cookie,
+    Response,
+    WebSocket,
+    WebSocketDisconnect,
+)
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
+from jose import JWTError
 from live_chat_room.schemas import UserSchema
 from live_chat_room.db import get_session
 from live_chat_room.models import UserModel
-from live_chat_room.token import hash_passwd, verifiy_passwd, gen_access_token
+from live_chat_room.token import (
+    decode_access_token,
+    hash_passwd,
+    verifiy_passwd,
+    gen_access_token,
+)
+from live_chat_room.ws import WsConnectionManager
 
 router = APIRouter()
 
+ws_manager = WsConnectionManager()
 
-@router.post("/login")
+
+@router.post("/login", tags=["auth"])
 def login(user: UserSchema, session: Session = Depends((get_session))) -> JSONResponse:
     avail_user = session.query(UserModel).filter(UserModel.name == user.name).first()
     if not avail_user:
@@ -31,7 +50,7 @@ def login(user: UserSchema, session: Session = Depends((get_session))) -> JSONRe
     return response
 
 
-@router.post("/signup")
+@router.post("/signup", tags=["auth"])
 def signup(user: UserSchema, session: Session = Depends((get_session))):
     existing_user = session.query(UserModel).filter(UserModel.name == user.name).first()
     if existing_user:
@@ -45,17 +64,42 @@ def signup(user: UserSchema, session: Session = Depends((get_session))):
     return {"message": f"{new_user.name} created successfully!"}
 
 
-@router.post("/logout")
+@router.post("/logout", tags=["auth"])
 def logout(response: Response):
     response = JSONResponse({"message": "Logged out successfully!"})
     response.delete_cookie("acc_token")
     return response
 
 
-@router.get("/show")
-def get_token(acc_token=Cookie(default=None)):
+@router.get("/user/me")
+def fetch_current_user(
+    acc_token=Cookie(default=None),
+    session: Session = Depends((get_session)),
+):
     if not acc_token:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="token not avilable"
         )
-    return {"token": acc_token}
+    try:
+        user = decode_access_token(acc_token)
+
+        return {"token user": user}
+    except JWTError as e:
+        print(f"jwt traceback : {e}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="token not avilable"
+        )
+
+
+@router.websocket("/chat")
+async def chat(socket: WebSocket):
+    await socket.accept()
+    ws_manager.add_connection(socket)
+    try:
+        while True:
+            data = await socket.receive_text()
+            await ws_manager.broadcast(data)
+    except WebSocketDisconnect:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="ws connection refused"
+        )
