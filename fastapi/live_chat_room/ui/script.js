@@ -1,24 +1,4 @@
 // check is user authenticated
-const isAuthenticated = async () => {
-  const currentLocation = location.href;
-
-  if (!currentLocation.includes("index.html")) {
-    try {
-      const response = await fetch("http://localhost:8000/api/v1/show", {
-        credentials: "include",
-      });
-      if (!response.ok) {
-        console.log("response not ok, redirecting");
-        window.location.href = "/index.html";
-        throw new Error(`HTTP erro ${response.status}`);
-      }
-    } catch (err) {
-      console.error(`Error occured in token checking ${err}`);
-    }
-  }
-};
-
-isAuthenticated();
 
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
@@ -129,3 +109,24 @@ if (logoutBtn) {
       .catch((err) => console.error(err));
   });
 }
+
+const isAuthenticated = async () => {
+  const currentLocation = location.href;
+
+  if (!currentLocation.includes("index.html")) {
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/show", {
+        credentials: "include",
+      });
+      if (!response.ok) {
+        console.log("response not ok, redirecting");
+        window.location.href = "/index.html";
+        throw new Error(`HTTP erro ${response.status}`);
+      }
+    } catch (err) {
+      console.error(`Error occured in token checking ${err}`);
+    }
+  }
+};
+
+isAuthenticated();
