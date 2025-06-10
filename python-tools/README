@@ -3,6 +3,5 @@ This contain all python library notes, for building LLM based applications.
 This include
 ------------
 - transformers
-- hugging-face
 - ollama
 - langchain
