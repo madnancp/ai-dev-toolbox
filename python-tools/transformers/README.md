@@ -22,3 +22,9 @@
 - So, when load a model from HF using transformers it fetch the configuration files and trained weight, and fetch the skelton class for the model and append the weight into it.
 
 - We can also fine-tune models with transformers & PyTorch.
+
+- It mainly used for
+	- Load all models and Inference,  stored in HF hub.
+	- Create our own LLM and publish in HF hub.
+	- Quantize any available model in HF hub.
+	- Fine-Tune any model in specific task.
