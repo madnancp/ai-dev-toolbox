@@ -1,0 +1,72 @@
+body {
+	padding: 0;
+	margin: 0;
+	background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+	height: 100vh;
+}
+
+.c-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.flex-col {
+	flex-direction: column;
+}
+
+.mx-4 {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.my-4 {
+	margin-top: 25px;
+	margin-bottom: 25px;
+
+}
+
+input {
+	padding: 10px;
+	font-size: 18px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+}
+
+input:focus {
+	box-shadow: 2px 2px 10px 2px #808080;
+
+}
+
+.btn {
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+	color: white;
+	background: green;
+	font-size: 16px;
+	font-weight: bold;
+
+}
+
+.btn:hover {
+	cursor: pointer;
+	background: #006620;
+}
+
+.text-sec {
+	color: #293d3d;
+}
+
+.card {
+	background-color: rgba(255, 255, 255, 0.01);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+	padding: 30px;
+	border-radius: 16px;
+}

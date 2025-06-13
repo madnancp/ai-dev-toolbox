@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<title>prompt playground</title>
+		<link rel="stylesheet" href="style.css"></link>
+	</head>
+	<body class="c-center">
+		<section class="c-center flex-col card">
+			<h1> Prompt Playground </h1>
+			<span class="text-sec">
+				tweak the prompt hyperparams to know how the input changes
+			</span>
+
+
+			<form id="promptForm">
+				<div class="c-center flex-col my-4">
+					<label for="prompt"> Enter Your prompt.</label>
+					<input type="text" id="prompt" placeholder="your prompt. "/>
+				</div>
+
+				<div class="c-center">
+					<div class="mx-4 c-center flex-col">
+						<label for="temp">Temperature</label>
+						<input type="number" min="0.1" max="2.0" step="0.1" placeholder="temperature" id="temp"/>
+					</div>
+
+					<div class="mx-4 c-center flex-col">
+						<label for="top-k">Top-K</label>
+						<input type="number" min="10" max="100" step="10" placeholder="top-k" id="top-k"/>
+					</div>
+					<div class="mx-4 c-center flex-col">
+						<label for="top-p">Top-P</label>
+						<input type="number" min="0.1" max="1.0" step="0.1" placeholder="top-p" id="top-p"/>
+					</div>
+				</div>
+				<div class="c-center my-4">
+					<button class="btn" id="sb-btn">submit</button>
+				</div>
+			</form>
+		</section>
+	</body>
+</html>
