@@ -1,2 +1,12 @@
-an gen-ai side project to get understand the model inference with 
+Gen-AI side project to get understand the model inference with 
 `transformers` + `fastapi`
+
+- you can tweak prompt params such as 
+	- max_new_tokens
+	- temperature
+	- top_k
+	- top_p
+
+- model used: TinyLlama/TinyLlama-1.1B-Chat-v1.0
+- model file size: 2.4GB
+
