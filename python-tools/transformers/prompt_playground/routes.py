@@ -1,31 +1,26 @@
-from contextlib import contextmanager
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter, Request
 from pydantic import BaseModel
-from prompt_playground.inference import LLMInferenceManager
 
 
 class PromptSchema(BaseModel):
     prompt: str
+    max_new_tokens: int
     temperature: float
     top_k: int
     top_p: float
-
-
-llm_inference: None | LLMInferenceManager = None
-
-
-@contextmanager
-async def lifespan(app: FastAPI):
-    global llm_inference
-    llm_inference = LLMInferenceManager()
-    yield
 
 
 router = APIRouter(tags=["inference"])
 
 
 @router.post("/generate")
-def get_llm_reponse(prompt: PromptSchema):
-    if llm_inference is not None:
-        llm_inference.ask(prompt.prompt)
-    return {"result": "Capital of India is New Delhi."}
+async def get_llm_reponse(request: Request, prompt: PromptSchema):
+    res = request.app.state.llm_inference
+    out = await res.ask(
+        prompt.prompt,
+        prompt.temperature,
+        prompt.max_new_tokens,
+        prompt.top_p,
+        prompt.top_k,
+    )
+    return {"result": out}

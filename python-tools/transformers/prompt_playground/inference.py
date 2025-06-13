@@ -11,13 +11,45 @@ class LLMInferenceManager:
             self.model_name, torch_dtype="auto", device_map="auto"
         )
 
-    def ask(self, query: str) -> str:
-        pass
+    async def ask(
+        self,
+        query: str,
+        temperature: float,
+        max_new_tokens: int,
+        top_p: float,
+        top_k: int,
+    ) -> str:
+        model_out = await self.pass_query(
+            query, temperature, max_new_tokens, top_p, top_k
+        )
+        result = await self.decode_output_ids(model_out)
 
-    def pass_query(self, query: str) -> Any:
+        return self._format_output(result)
+
+    async def pass_query(
+        self,
+        query: str,
+        temperature: float,
+        max_new_tokens: int,
+        top_p: float,
+        top_k: int,
+    ) -> Any:
         prompt = self._set_chat_template(query)
-        token_ids = self.tokenizer.add_chat_template(prompt, return_tensors="pt")
-        self.model(**token_ids)
+        token_ids = self.tokenizer.apply_chat_template(
+            prompt, return_tensors="pt", tokenize=True
+        )
+        output_ids = self.model.generate(
+            token_ids,
+            temperature=temperature,
+            max_new_tokens=max_new_tokens,
+            top_p=top_p,
+            top_k=top_k,
+            do_sample=True,
+        )
+        return output_ids[0]
+
+    async def decode_output_ids(self, token_ids: Any) -> str:
+        return self.tokenizer.decode(token_ids, skip_special_tokens=True)
 
     def _set_chat_template(self, query: str) -> List[Dict[str, str]]:
         messages = [
@@ -31,3 +63,12 @@ class LLMInferenceManager:
             },
         ]
         return messages
+
+    def _format_output(self, output: str) -> str:
+        """return only ai generated result."""
+
+        if "<|assistant|>" in output:
+            result = output.split("<|assistant|>")[1]
+            return result.strip()
+
+        return output.strip()

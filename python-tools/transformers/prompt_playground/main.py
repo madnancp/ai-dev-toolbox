@@ -1,8 +1,22 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from prompt_playground.routes import router
+from prompt_playground.inference import LLMInferenceManager
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    infr = LLMInferenceManager()
+    app.state.llm_inference = infr
+
+    yield
+
+    del app.state.llm_inference
+
+
+app = FastAPI(lifespan=lifespan)
+
 
 app.add_middleware(
     CORSMiddleware,
