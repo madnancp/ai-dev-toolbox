@@ -3,7 +3,7 @@
 		<title>prompt playground</title>
 		<link rel="stylesheet" href="style.css"></link>
 	</head>
-	<body class="c-center">
+	<body class="center">
 		<section class="c-center flex-col card">
 			<h1> Prompt Playground </h1>
 			<span class="text-sec">
@@ -33,15 +33,21 @@
 					</div>
 					<div class="mx-4 c-center flex-col">
 						<label for="max-new-tokens">Max New Tokens</label>
-						<input type="number" min="10" max="60" step="5" placeholder="max new tokens" id="max-new-tokens" name="max-new-tokens"/>
+						<input type="number" min="10" max="100" step="5" placeholder="max new tokens" id="max-new-tokens" name="max-new-tokens"/>
 					</div>
 				</div>
 
 				<div class="c-center my-4">
-					<button class="btn" id="sb-btn" type="submit">submit</button>
+					<button class="btn btn-primary" id="sb-btn" type="submit">submit</button>
 				</div>
 			</form>
+
+			<button class="btn btn-secondary d-none" id="result-btn">
+				clear output
+			</button>
 		</section>
+
+			<div class="result d-none" id="result"></div>
 
 		<script src="script.js"></script>
 	</body>

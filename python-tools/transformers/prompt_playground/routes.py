@@ -23,4 +23,4 @@ async def get_llm_reponse(request: Request, prompt: PromptSchema):
         prompt.top_p,
         prompt.top_k,
     )
-    return {"result": out}
+    return {"assistant": out}

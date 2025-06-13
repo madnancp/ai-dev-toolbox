@@ -1,4 +1,12 @@
 const promptForm = document.getElementById("prompt-form");
+const resultField = document.getElementById("result");
+const resultClearBtn = document.getElementById("result-btn");
+
+resultClearBtn.addEventListener("click", () => {
+  resultField.innerText = "";
+  resultField.classList.add("d-none");
+  resultClearBtn.classList.add("d-none");
+});
 
 promptForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -18,6 +26,8 @@ promptForm.addEventListener("submit", (event) => {
     max_new_tokens: parseInt(maxNewTokns),
   };
 
+  resultField.classList.remove("d-none");
+  resultField.innerText = "generating...";
   fetch("http://localhost:8000/api/v1/generate", {
     method: "POST",
     body: JSON.stringify(data),
@@ -26,14 +36,15 @@ promptForm.addEventListener("submit", (event) => {
     },
   })
     .then((response) => {
+      console.log("it start now");
       return response.json();
     })
     .then((data) => {
-      console.log(data.result);
+      resultClearBtn.classList.remove("d-none");
+      resultField.innerText = "";
+      resultField.innerText = data.assistant;
     })
     .catch((err) => {
       console.error(err);
     });
-
-  // promptForm.reset();
 });
