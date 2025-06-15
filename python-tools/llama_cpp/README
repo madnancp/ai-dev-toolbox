@@ -1,0 +1,25 @@
+what is llama.cpp
+================
+
+- Llama.cpp is a inference framework specificaly for `Running LLM on CPU`
+- It mainly used to run `gguf` quantized models.
+- It mainly created for LLaMA architecture. but now it adds up most top open source LLMs such as `Mistral` and so on.
+- It can load any model that converted to `gguf` (a common quantized format).
+
+
+where to use it:
+================
+
+- when we don't have high computer resource (GPU) to create LLM based applications.
+- so we can utlise the CPU with quantized models.
+
+
+Quantized models is nothing, 
+- by default model weights are set in float32/float16. 
+- This need GPU to process Billions of parameter maths operation. 
+- So we decrease the no.of bytes of the weight dtype as int4/int8, it can significantly decrease model file size. 
+- and increase inference speed even it lead some accuracy drop (but it can be achive via prompt engineering)`
+
+
+
+`since it is a cpp library, python have its binding named, llama-cpp-python`
