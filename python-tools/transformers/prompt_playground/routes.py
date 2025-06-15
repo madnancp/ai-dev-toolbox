@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Request
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 
@@ -14,13 +15,15 @@ router = APIRouter(tags=["inference"])
 
 
 @router.post("/generate")
-async def get_llm_reponse(request: Request, prompt: PromptSchema):
+async def get_streaming_output(request: Request, prompt: PromptSchema):
     res = request.app.state.llm_inference
-    out = await res.ask(
-        prompt.prompt,
-        prompt.temperature,
-        prompt.max_new_tokens,
-        prompt.top_p,
-        prompt.top_k,
+    return StreamingResponse(
+        res.streaming_output(
+            prompt.prompt,
+            prompt.temperature,
+            prompt.max_new_tokens,
+            prompt.top_p,
+            prompt.top_k,
+        ),
+        media_type="text/plain",
     )
-    return {"assistant": out}

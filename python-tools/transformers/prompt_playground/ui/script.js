@@ -36,13 +36,24 @@ promptForm.addEventListener("submit", (event) => {
     },
   })
     .then((response) => {
-      console.log("it start now");
-      return response.json();
-    })
-    .then((data) => {
-      resultClearBtn.classList.remove("d-none");
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
       resultField.innerText = "";
-      resultField.innerText = data.assistant;
+
+      function read() {
+        reader.read().then(({ done, value }) => {
+          if (done) {
+            resultField.innerText += "\n ----end----";
+            return;
+          }
+
+          const chunk = decoder.decode(value, { stream: true });
+          resultField.innerText += chunk;
+          resultField.innerHTML += "&nbsp";
+          read();
+        });
+      }
+      read();
     })
     .catch((err) => {
       console.error(err);
