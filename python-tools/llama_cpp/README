@@ -12,6 +12,9 @@ where to use it:
 
 - when we don't have high computer resource (GPU) to create LLM based applications.
 - so we can utlise the CPU with quantized models.
+- `llama.cpp` is not another `transformers`, 
+- `llama.cpp` is mainly used for only effcient gguf model inference.
+- `transformers` are used is `fine-tunning`, `training`, `quantization` and more.
 
 
 Quantized models is nothing, 
