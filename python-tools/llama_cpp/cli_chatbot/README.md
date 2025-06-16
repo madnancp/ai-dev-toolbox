@@ -21,11 +21,11 @@ max_new_tokens=512
 Assistant : The chemical form of water is H2O, which stands for hydrogen (H) and oxygen (O). Hydrogen and oxygen are the two atoms that make up water molecules.
 ```
 
-args
-====
---prompt = str | required
---temperature = float | default (0.8)
---top_k = int | default (50)
---top_p = float | default (0.96)
+Args
+
+- --prompt = str | required
+- --temperature = float | default (0.8)
+- --top_k = int | default (50)
+- --top_p = float | default (0.96)
 
 
