@@ -2,6 +2,6 @@ This contain all python library notes, for building LLM based applications.
 
 This include
 ------------
-- transformers
-- ollama
-- langchain
+- transformers ✅
+- llama.cpp ✅
+- langchain ⌛ 
