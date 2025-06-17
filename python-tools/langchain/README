@@ -32,9 +32,9 @@ Where to use it?
 LangChain Modules
 =================
 
-- [⌛] llms
-- [ ] prompts
+- [⌛] prompts
 - [ ] chains
+- [] llms
 - [ ] document_loaders
 - [ ] text_splitters
 - [ ] embeddings
