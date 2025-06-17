@@ -1,0 +1,9 @@
+module located : `langchain.prompts`
+
+Prompt is how the input string for LLM should be formated.
+
+- Mainly there is 3 Prompt templates
+	- PromptTemplate : which is used in raw LLM (it means the LLM input does not need to be format, it can take raw text.)
+	- ChatPromptTemplate : used in chat-models (like. openai, llama-2 etc..)
+	- FewShotPromptTemplate : used to provide some example of what the model need to do.
+
