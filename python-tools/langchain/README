@@ -1,4 +1,47 @@
 LangChain
 =========
 
+`LangChain` is a framework that help to build application in top of LLMs.
+
+- It comes with leading LLM provider integration.
+- Officialy supported Languages : `Python`, `JS/TS`
+
+What it does?
+============
+
+- `Make LLM usable in Real-World apps.`
+- It can add memory to your application.
+- It can connect your document or db to LLM.
+- Good integration with Vector DBs.
+- It can create Agent for your LLM.
+- It can connect with google-search, like functions.
+
+
+Where to use it?
+================
+
+- when you build application with LLM that need memory, Agentic workflow.
+- Multi Model apps (image and text)
+- RAG applications.
+
+
+> LangChain have 13 modules in it.
+> I'll look at each modules and explore it.
+> All module i create as each Folder.
+
+LangChain Modules
+=================
+
+- [⌛] llms
+- [ ] prompts
+- [ ] chains
+- [ ] document_loaders
+- [ ] text_splitters
+- [ ] embeddings
+- [ ] vectorstores
+- [ ] retrivers
+- [ ] memory
+- [ ] agents
+- [ ] tools
+- [ ] callbacks
 
