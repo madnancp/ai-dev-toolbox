@@ -1,8 +1,0 @@
-`This Module is changed in recent time that`
-
-- v1: all provider classes inside `langchain.llms`
-- latest: all provider have their on package, such as for 
-	- openai = langchain-openai
-	- gemini = langchain-google-genai
-	- huggingface = langchain-huggingface
-	- llama.cpp = langchain-community
