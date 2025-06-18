@@ -11,3 +11,13 @@ module located: `langchain.chains`
 In LangChain there is 2 `chains`
 	1. Simple Chains
 	2. Custome/Multi-step Chains
+
+- This can be done by `LCEL`
+
+```python
+chain = prompt | llm
+
+chain.invoke()
+chain.stream()
+````
+
