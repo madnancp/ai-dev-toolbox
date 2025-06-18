@@ -1,0 +1,13 @@
+Chain
+========
+
+> `LCEL` => LangChain Expression Language
+
+module located: `langchain.chains`
+
+- `chain` is referse to sequence of operations.
+- like, input -> prompt template -> llm -> ouput
+
+In LangChain there is 2 `chains`
+	1. Simple Chains
+	2. Custome/Multi-step Chains
