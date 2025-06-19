@@ -1,0 +1,11 @@
+Text Splitters
+==============
+
+- Module located in `langchain.text_splitters`
+- `RecursiveTextSplitter` is most common one, used in RAG systems.
+
+Things to understand
+====================
+
+- `chunk_size` 	  : how much charactor size need in chunks.
+- `chunk_overlap` : (work like sliding window) to keep the context.
