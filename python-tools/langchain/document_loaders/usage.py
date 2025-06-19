@@ -20,3 +20,13 @@ print(f"Json File `metadata` : {json_data[0].metadata}")
 
 
 #####################################################
+
+# load .pdf
+# depends : `pypdf`
+
+from langchain_community.document_loaders import PyPDFLoader
+
+pdf_loader = PyPDFLoader(file_path="./resume.pdf")
+pdf_data = pdf_loader.load()
+print(f"Pdf File `page_content` : {pdf_data[0].page_content}")
+print(f"Pdf File `metadata` : {pdf_data[0].metadata}")
