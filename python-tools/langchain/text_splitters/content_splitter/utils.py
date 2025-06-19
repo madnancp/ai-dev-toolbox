@@ -1,7 +1,3 @@
-from langchain.text_splitter import split_text_on_tokens
-from langchain_text_splitters.character import _split_text_with_regex
-
-
 def _load_pdf(path: str) -> str:
     from langchain_community.document_loaders import PyPDFLoader
 
@@ -27,8 +23,8 @@ def _split_to_chunks(content: str, chunks: int = 50) -> None:
     )
     doc_chunks = splitter.split_text(content)
 
+    os.makedirs("./outputs", exist_ok=True)
     for idx, chunk in enumerate(doc_chunks, start=1):
-        os.makedirs("./outputs", exist_ok=True)
         with open(f"./outputs/{idx}_chunk.txt", "w") as file:
             file.write(chunk)
         print(f"./outputs/{idx}_chunk.txt WRITED SUCCESSFULLY")

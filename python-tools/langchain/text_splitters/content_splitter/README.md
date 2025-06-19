@@ -6,8 +6,8 @@
 
 usage
 ```bash
-python main.py --pdf path/to/pdf --chunk_size 200
+python -m content_splitter.main --type pdf --path path/to/pdf --size 100
 
-# it will fetch the content from the pdf and split to several chunks that contain 200 chars in each. and store that in txt files
+# it will fetch the content from the pdf and split to several chunks that contain 100 chars in each. and store that in txt files
 ```
 
