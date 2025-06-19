@@ -1,0 +1,10 @@
+Document Loader
+===============
+
+- module located in `langchain_community.document_loaders`
+
+It used for 
+===========
+
+- load text content from `file`, `pdf`, `websites`, `notion`
+- all loader have 2 main data `page_content` and `metadata`
