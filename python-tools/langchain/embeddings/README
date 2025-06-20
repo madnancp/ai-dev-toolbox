@@ -1,0 +1,16 @@
+Embeddings
+==========
+
+- Module located : `langchain_huggingface`
+
+`Embeddings`: it convert text into numerical vector and add semantic contextual meaning into it.
+
+- Embeddings is mostly used with RAG applications.
+- In industry most better accurate embeddings is `OpenAI`s, but that need API KEY (paid)
+- other hand `sentence-transformers/all-MiniLM-L6-v2` this embedding model is best all rounder, and free to use. it create `384` size dence vector for each sentence.
+
+
+What is the use of it?
+======================
+
+- when creating RAG system, we scrap data from sources and convert it as vector embeddings and store on `vector db`
