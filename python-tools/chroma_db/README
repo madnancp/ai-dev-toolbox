@@ -3,3 +3,21 @@ ChromaDB
 
 - Its a open source vector database.
 - support in python and js.
+- package name `chromadb`
+
+what is vector db.
+=================
+
+- vector db is help to perform semantic search through text content.
+- `flow` : embedding text -> store the embeddings to vector store
+- `use` : input embeddings -> cosine similarity -> get related text
+
+----
+
+core
+====
+
+- `collections` : its like tables in sql.
+- `document` 	: collection of sentence.
+
+
