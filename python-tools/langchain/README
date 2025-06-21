@@ -36,7 +36,7 @@ LangChain Modules
 - [✅] chains
 - [✅] document_loaders
 - [✅] text_splitters
-- [ ] embeddings
+- [✅] embeddings
 - [ ] vectorstores
 - [ ] retrivers
 - [ ] memory

@@ -5,3 +5,4 @@ This include
 - transformers ✅
 - llama.cpp ✅
 - langchain ⌛ 
+- chroma_db
