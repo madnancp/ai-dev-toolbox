@@ -1,0 +1,27 @@
+An CLI utility to store text on chromadb, and perform `semantic search` on it
+
+used
+====
+- chromadb 		: for vector db
+- sentence-transformers : for sentence embeddings
+
+
+to run
+======
+
+```python
+python -m cli_semantic_search.main
+```
+
+```bash
+Initializing vector store ⏳...
+vector store initialized successfully ✅.
+
+1. Add new document.
+2. Search through documents.
+3. Update a document.
+4. Delete a document.
+5. Fetch all documents.
+
+Enter your option (number) : _
+````
