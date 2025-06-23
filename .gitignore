@@ -5,6 +5,10 @@ __pycache__/
 
 *.gguf
 
+*.bin
+*.sqlite3
+*.sqlite
+
 # C extensions
 *.so
 
