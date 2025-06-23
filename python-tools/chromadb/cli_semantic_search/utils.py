@@ -18,9 +18,16 @@ class VectorStore:
             name=collection_name,
         )
 
-    def create(self) -> bool:
-        self.collection.add()
-        pass
+    def create(self, sentence: str) -> tuple[bool, str]:
+        try:
+            new_id = self._generate_id()
+            new_embeddings = self._embedd(sentence=sentence)
+            self.collection.add(
+                ids=[new_id], documents=[sentence], embeddings=new_embeddings
+            )
+            return True, "ok"
+        except Exception as e:
+            return False, str(e)
 
     def update(self) -> bool:
         pass
@@ -34,7 +41,7 @@ class VectorStore:
     def _embedd(self, sentence: str) -> list:
         return self.embedder.encode(sentence).tolist()
 
-    def _generate_ids(self) -> str:
+    def _generate_id(self) -> str:
         """generate ids, 000-999"""
 
         val = int(self.id)
