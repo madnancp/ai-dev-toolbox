@@ -11,17 +11,23 @@ options = """
 2. Search through documents.
 3. Update a document.
 4. Delete a document.
+5. Fetch all documents.
 
 Enter your option (number) : 
 """
 
 
-def format_result(result: dict) -> None:
-    for each in range(2):
-        print(
-            f"DISTANCE: {result.get('distances', '')[0][each]} || ID: {result.get('ids', '')[0][each]}"
-        )
-        print(f"DOCUMENT: {result.get('documents', '')[0][each]}")
+def format_result(result: dict, limit: int = 2) -> None:
+    for each in range(limit):
+        print(f"{each+1}). ", end="")
+        if "distances" in result.keys():
+            print(f"DISTANCE: {result.get('distances', '')[0][each]}", end=" || ")
+            print(f"ID: {result.get('ids', '')[0][each]}", end=" || ")
+            print(f"DOCUMENT: {result.get('documents', '')[0][each]}")
+
+        else:
+            print(f"ID: {result.get('ids', '')[each]}", end=" || ")
+            print(f"DOCUMENT: {result.get('documents', '')[each]}")
 
 
 while True:
@@ -56,9 +62,37 @@ while True:
 
         case 3:
             print("<<✅ UPDATE DOCUMENT ✅>>")
+            id = input(
+                "Enter document ID (please look at `fetch all document option): "
+            )
+            new_sentence = input("Enter new sentence: ")
+            status, err = store.update(id=id, new_sentence=new_sentence)
+            if status:
+                print(f"<<✅ {id} UPDATED ✅>>")
+            else:
+                print(f"❌ from update doc: {err} ❌")
+
+            print("<<✅ END OF UPDATE DOCUMENT ✅>>")
 
         case 4:
             print("<<✅ DELETE DOCUMENT ✅>>")
+
+            id = input(
+                "Enter document ID (please look at `fetch all document option): "
+            )
+            status, err = store.delete(id=id)
+            if status:
+                print(f"<<✅ {id} DELETED ✅>>")
+            else:
+                print(f"❌ from delete doc: {err} ❌")
+
+            print("<<✅ END OF DELETE DOCUMENT ✅>>")
+
+        case 5:
+            print("<<✅ FETCH ALL DOCUMENT ✅>>")
+            result = store.fetch_all
+            format_result(result, limit=len(result.get("ids")))
+            print("<<✅ END OF FETCH ALL DOCUMENT ✅>>")
 
         case _:
             print("please enter the appropreate number of the option.")

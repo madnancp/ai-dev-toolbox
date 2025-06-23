@@ -32,11 +32,27 @@ class VectorStore:
         except Exception as e:
             return False, str(e)
 
-    def update(self) -> bool:
-        raise NotImplementedError
+    def update(self, id: str, new_sentence: str) -> tuple[bool, str]:
+        if id not in self.fetch_all.get("ids"):
+            return False, "id not found!"
+        try:
+            new_embdd = self._embedd(sentence=new_sentence)
+            self.collection.update(
+                ids=[id], embeddings=new_embdd, documents=[new_sentence]
+            )
+            return True, "Ok!"
+        except Exception as e:
+            return False, str(e)
 
-    def delete(self) -> bool:
-        raise NotImplementedError
+    def delete(self, id: int) -> tuple[bool, str]:
+        if id not in self.fetch_all.get("ids"):
+            return False, "id not found!"
+
+        try:
+            self.collection.delete(ids=[id])
+            return True, "Ok!"
+        except Exception as e:
+            return False, str(e)
 
     def search(self, sentence: str) -> Any:
         embeddings = self._embedd(sentence=sentence)
@@ -49,7 +65,7 @@ class VectorStore:
     def _generate_id(self) -> str:
         """generate ids, 000-999"""
 
-        val = int(self.id)
+        val = int(self._current_id)
         if 9 <= val <= 98:
             new_id = "0" + str(val + 1)
             self.id = new_id
@@ -67,3 +83,12 @@ class VectorStore:
 
         else:
             return "NAN"
+
+    @property
+    def _current_id(self) -> str:
+        result = self.collection.get()
+        return result.get("ids")[-1]
+
+    @property
+    def fetch_all(self) -> Any:
+        return self.collection.get()
