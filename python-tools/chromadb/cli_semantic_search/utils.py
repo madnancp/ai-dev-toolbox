@@ -1,3 +1,4 @@
+from typing import Any
 from chromadb import PersistentClient
 from sentence_transformers import SentenceTransformer
 
@@ -12,7 +13,9 @@ class VectorStore:
         self.id = "000"
         self.client = PersistentClient(path=store_path)
 
-        self.embedder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+        self.embedder = SentenceTransformer(
+            "sentence-transformers/all-MiniLM-L6-v2",
+        )
 
         self.collection = self.client.get_or_create_collection(
             name=collection_name,
@@ -30,13 +33,15 @@ class VectorStore:
             return False, str(e)
 
     def update(self) -> bool:
-        pass
+        raise NotImplementedError
 
     def delete(self) -> bool:
-        pass
+        raise NotImplementedError
 
-    def search(self) -> bool:
-        pass
+    def search(self, sentence: str) -> Any:
+        embeddings = self._embedd(sentence=sentence)
+        result = self.collection.query(query_embeddings=embeddings, n_results=2)
+        return result
 
     def _embedd(self, sentence: str) -> list:
         return self.embedder.encode(sentence).tolist()
@@ -59,3 +64,6 @@ class VectorStore:
             new_id = "00" + str(val + 1)
             self.id = new_id
             return self.id
+
+        else:
+            return "NAN"
