@@ -59,3 +59,8 @@ result = retriver.invoke(input="what is python")
 print(f"result: {result}")
 
 print("<< END OF `MultiQueryRetriever` >>")
+
+
+# 3. SelfQueryRetriever
+
+# 4. ContextualCompressionRetriver

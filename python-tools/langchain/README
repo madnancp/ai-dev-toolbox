@@ -37,4 +37,4 @@ LangChain Modules
 - [✅] document_loaders
 - [✅] text_splitters
 - [✅] embeddings
-- [ ] retrivers
+- [✅] retrivers
