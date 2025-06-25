@@ -1,2 +1,7 @@
 Retrivers
 =========
+
+- module located : `langchain.retrivers`
+- in langchain retrivers are an interface that take `query string` and return `relavent docs`
+- retriver do : `query embeddings -> search the embeddings with vector store -> show the result docs`
+- langchain have many retriver classes.
