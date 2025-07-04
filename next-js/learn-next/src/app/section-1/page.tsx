@@ -1,5 +1,5 @@
-import MovieCard from "@/components/MovieCard";
-import ProfileCard from "@/components/ProfileCard";
+import MovieCard from "@/components/custom/MovieCard";
+import ProfileCard from "@/components/custom/ProfileCard";
 import { profileData, books } from "@/lib/data";
 
 const SectionOne = () => {
@@ -12,7 +12,7 @@ const SectionOne = () => {
       <h1 className="font-bold text-3xl">1. Profile Card Component</h1>
       <div className="grid grid-cols-2 gap-4 max-h-2/4 max-w-3/4">
         {profileData.map((each) => (
-          <ProfileCard name={each.name} bio={each.bio} avatarUrl={each.avatarUrl} online={each.online} />
+          <ProfileCard key={each.key} name={each.name} bio={each.bio} avatarUrl={each.avatarUrl} isOnline={each.isOnline} />
         ))}
       </div>
 
@@ -32,13 +32,13 @@ const SectionOne = () => {
         <div className="bg-gray-700 p-2 rounded-2xl">
           <h2 className="font-bold text-white text-3xl text-center mx-3">Romantic Movies</h2>
           {loveBooks.map(each => (
-            <MovieCard name={each.name} genre={each.genre} director={each.director} />
+            <MovieCard key={each.key} name={each.name} genre={each.genre} director={each.director} />
           ))}
         </div>
         <div className="bg-gray-700 p-2 rounded-2xl">
           <h2 className="font-bold text-white text-3xl text-center mx-3">Triller Movies</h2>
           {trillerBooks.map(each => (
-            <MovieCard name={each.name} genre={each.genre} director={each.director} />
+            <MovieCard key={each.key} name={each.name} genre={each.genre} director={each.director} />
           ))}
         </div>
       </div>

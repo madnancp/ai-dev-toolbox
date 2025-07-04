@@ -10,7 +10,7 @@ const ProfileCard = (props: TProfile) => {
 			<div className="flex flex-col ml-5 w-full items-start justify-center">
 				<h2 className="font-bold text-xl">{props.name}</h2>
 				{
-					props.online ? <span className="text-green-400">online</span> : <span className="text-red-400">offline</span>
+					props.isOnline ? <span className="text-green-400">online</span> : <span className="text-red-400">offline</span>
 				}
 				<span className="text-md text-gray-400">{props.bio ? props.bio : 'no bio'}</span>
 			</div>
