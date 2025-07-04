@@ -12,3 +12,18 @@ export interface TMovie {
 	director: string
 	genre: string
 }
+
+
+export interface Task {
+	id: number,
+	name: string,
+	descreption: string,
+	priority: string,
+}
+
+
+export enum TaskPriority {
+	High = "high",
+	Medium = "medium",
+	Low = "low"
+}
