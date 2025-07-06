@@ -1,29 +1,40 @@
 "use client"
-
-
+import TaskCard from "@/components/custom/TaskCard";
 import { TaskCrud } from "@/services/task.service";
 import { ITask } from "@/types/shared";
 import { useEffect, useState } from "react";
+import TaskCreateForm from "./forms/TaskForm";
+import TaskDisplayCard from "./components/TaskCard";
 
 const Todo = () => {
   const [tasks, setTasks] = useState<ITask[]>([])
 
+
+  const fetchTasks = async () => {
+    const data = await TaskCrud.getAllTasks()
+    setTasks(data);
+  }
+
   useEffect(() => {
-    const call = async () => {
-      const data = await TaskCrud.getAllTasks()
-      setTasks(data);
-    }
-    call()
+    fetchTasks()
   }, [])
+
+  const handleOnTaskAdd = () => {
+    fetchTasks()
+  }
+
+
+
   return (
-    <div className="text-white">
-      <ul>
-        {tasks && (
-          tasks.map((each) => (
-            <li key={each.id}>{each.name} : {each.description} : {each.priority}</li>
-          )
+    <div className="flex justify-center h-screen">
+      <div className="max-w-96 w-full max-h-9/10 h-full  my-8 ">
+        <TaskCreateForm onAdd={handleOnTaskAdd} />
+        <div className="bg-gray-700/50 rounded-md mt-4 max-h-3/5 overflow-x-scroll p-5 flex flex-col gap-5">
+          {tasks.map((each) => (
+            <TaskDisplayCard key={each.id} name={each.name} descreption={each.description} priority={each.priority} />
           ))}
-      </ul>
+        </div>
+      </div>
     </div>
   )
 }

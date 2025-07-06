@@ -31,8 +31,14 @@ export enum TaskPriority {
 export interface ITask {
 	id: string,
 	name: string,
-	description: string,
+	description?: string,
 	priority: TaskPriority
 	created_at: Date,
 	updated_at: Date
+}
+
+export interface ITaskCreate {
+	name: string,
+	description?: string,
+	priority: TaskPriority
 }
