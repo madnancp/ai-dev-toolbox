@@ -27,3 +27,12 @@ export enum TaskPriority {
 	Medium = "medium",
 	Low = "low"
 }
+
+export interface ITask {
+	id: string,
+	name: string,
+	description: string,
+	priority: TaskPriority
+	created_at: Date,
+	updated_at: Date
+}
