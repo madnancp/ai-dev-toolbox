@@ -5,7 +5,7 @@ from backend.enums import Priority
 
 class Task(BaseModel):
     name: str
-    description: str
+    description: str | None
     priority: Priority
 
 
@@ -15,3 +15,10 @@ class TaskRead(Task):
     id: UUID1
     created_at: datetime
     updated_at: datetime
+
+
+class TaskUpdate(BaseModel):
+    id: UUID1
+    name: str | None
+    description: str | None
+    priority: Priority | None

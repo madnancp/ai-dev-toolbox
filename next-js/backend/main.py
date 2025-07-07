@@ -3,7 +3,7 @@ from typing import List
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from backend.models import TodoTask
-from backend.schemas import TaskRead, Task
+from backend.schemas import TaskRead, Task, TaskUpdate
 from backend.core.db import get_session, Base, engine
 
 Base.metadata.create_all(bind=engine)
@@ -59,6 +59,36 @@ def get_all_tasks(session=Depends(get_session)):
     try:
         all_tasks = session.query(TodoTask).all()
         return all_tasks
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
+        )
+
+
+@app.patch("/task/{id}", response_model=TaskRead)
+def update_task(id: UUID, updated_task: TaskUpdate, session=Depends(get_session)):
+    try:
+        task = session.query(TodoTask).filter(TodoTask.id == id).first()
+        if not task:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="task not found!"
+            )
+        task.name = updated_task.name if updated_task.name is not None else task.name
+        task.description = (
+            updated_task.description
+            if updated_task.description is not None
+            else task.description
+        )
+        task.priority = (
+            updated_task.priority
+            if updated_task.priority is not None
+            else task.priority
+        )
+
+        session.commit()
+        session.refresh(task)
+        return task
+
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
