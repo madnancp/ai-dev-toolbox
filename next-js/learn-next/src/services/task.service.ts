@@ -75,5 +75,24 @@ export class TaskCrud {
 			return null
 		}
 	}
+
+	static async deleteTask(id: string): Promise<string> {
+		try {
+			const response = await fetch(`${this.NEXT_PUBLIC_API_BASE_URL}/task/${id}`, {
+				method: "DELETE",
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json"
+				}
+
+			})
+			const data: string = await response.json()
+			return data;
+		} catch (err) {
+			console.log(err)
+			return ""
+		}
+
+	}
 }
 

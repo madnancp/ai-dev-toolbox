@@ -53,7 +53,6 @@ const EditTaskFrom = (props: Prop) => {
       </div>
 
       <div>
-
         <Label className="text-sm text-gray-300" htmlFor="editTaskDesc">Description</Label>
         <Input type="text" value={taskDesc} onChange={(e) => { setTaskDesc(e.target.value) }} id="editTaskDesc" />
       </div>

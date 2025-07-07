@@ -11,6 +11,7 @@ const Todo = () => {
   const fetchTasks = async () => {
     const data = await TaskCrud.getAllTasks()
     setTasks(data);
+    console.log("this called")
   }
 
   useEffect(() => {

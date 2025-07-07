@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CircleCheck, CircleX, Pen } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { TaskPriority } from "@/types/shared";
 import EditTaskFrom from "../forms/TaskEditForm";
+import { TaskCrud } from "@/services/task.service";
+import { setDefaultAutoSelectFamilyAttemptTimeout } from "net";
 
 type Props = {
 	id: string,
@@ -16,6 +18,27 @@ type Props = {
 const TaskDisplayCard = (props: Props) => {
 	const [isCompleted, setIsCompleted] = useState<boolean>(false)
 	const [isEditing, setIsEditing] = useState<boolean>(false)
+	const [deleteStatus, setDeleteStatus] = useState<string | null>(null)
+
+
+	useEffect(() => {
+		if (isCompleted) {
+			setDeleteStatus("this will delete in 5s")
+			const timerId = setTimeout(async () => {
+				await TaskCrud.deleteTask(props.id)
+				console.log("after delete call")
+				setDeleteStatus(null)
+				props.handleTaskEdit()
+			}, 5000)
+			return () => {
+				clearTimeout(timerId)
+
+			}
+		}
+		setDeleteStatus(null)
+		props.handleTaskEdit()
+	}, [isCompleted])
+
 
 	return (
 		<div className={`flex justify-between items-center min-w-50 max-w-96 border p-5 rounded-lg ${isCompleted && 'opacity-40 line-through'} ${props.priority === 'high'
@@ -35,6 +58,9 @@ const TaskDisplayCard = (props: Props) => {
 								? 'text-yellow-600'
 								: 'text-yellow-100'
 							} font-semibold`}> {props.priority}</span></p>
+					{deleteStatus && (
+						<span className="no-underline">{deleteStatus}</span>
+					)}
 				</div>
 			) : (
 				<EditTaskFrom key={props.id} id={props.id} onEdit={props.handleTaskEdit} name={props.name} description={props.descreption} priority={props.priority} />

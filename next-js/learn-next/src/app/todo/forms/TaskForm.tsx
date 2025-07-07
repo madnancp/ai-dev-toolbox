@@ -4,7 +4,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { TaskCrud } from "@/services/task.service";
 import { TaskPriority } from "@/types/shared";
 import { Label } from "@radix-ui/react-label";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Prop = {
   onAdd: () => void
