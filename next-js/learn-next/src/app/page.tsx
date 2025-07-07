@@ -1,12 +1,12 @@
 export default function Home() {
-  const name: string = "Adnan";
   return (
-    <div className="grid grid-rws-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <nav>
-          <a href="">hi</a>
-        </nav>
-
+    <div className="flex justify-center items-center h-screen">
+      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start bg-gray-800 p-5 rounded-lg">
+        <ol className="flex flex-col">
+          <a href="/section-1" className="hover:text-blue-300 hover:underline">1. Section 1 Practice Questions</a>
+          <a href="/section-2" className="hover:text-blue-300 hover:underline">2. Section 2 Practical Quesions.</a>
+          <a href="/todo" className="hover:text-blue-300 hover:underline">3. TODO app.</a>
+        </ol>
       </main>
     </div>
   );
