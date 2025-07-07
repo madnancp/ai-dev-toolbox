@@ -93,3 +93,22 @@ def update_task(id: UUID, updated_task: TaskUpdate, session=Depends(get_session)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
         )
+
+
+@app.delete("/task/{id}")
+def delete_task(id: UUID, session=Depends(get_session)):
+    try:
+        task = session.query(TodoTask).filter(TodoTask.id == id).first()
+        if not task:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="task not found!"
+            )
+
+        session.delete(task)
+        session.commit()
+        return {"message": f"{task.id} deleted successfully!"}
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
+        )
