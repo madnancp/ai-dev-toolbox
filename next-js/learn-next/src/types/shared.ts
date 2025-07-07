@@ -37,8 +37,5 @@ export interface ITask {
 	updated_at: Date
 }
 
-export interface ITaskCreate {
-	name: string,
-	description?: string,
-	priority: TaskPriority
-}
+export type ITaskCreate = Omit<ITask, "created_at | updated_at">
+

@@ -55,4 +55,25 @@ export class TaskCrud {
 
 	}
 
+	static async updateTask(task: ITaskCreate): Promise<ITask | null> {
+		try {
+			const response = await fetch(`${this.NEXT_PUBLIC_API_BASE_URL}/task/${task.id}`, {
+				method: "PATCH",
+				body: JSON.stringify(task),
+				credentials: "include",
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+
+			const data: ITask = await response.json()
+			return data
+
+
+		} catch (err) {
+			console.log(err)
+			return null
+		}
+	}
 }
+

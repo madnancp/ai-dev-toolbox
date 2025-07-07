@@ -2,15 +2,21 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CircleCheck, CircleX, Pen } from "lucide-react";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import { TaskPriority } from "@/types/shared";
+import EditTaskFrom from "../forms/TaskEditForm";
 
 type Props = {
+	id: string,
 	name: string,
 	descreption?: string,
-	priority: string,
+	priority: TaskPriority,
+	handleTaskEdit: () => void;
 }
 
 const TaskDisplayCard = (props: Props) => {
 	const [isCompleted, setIsCompleted] = useState<boolean>(false)
+	const [isEditing, setIsEditing] = useState<boolean>(false)
+
 	return (
 		<div className={`flex justify-between items-center min-w-50 max-w-96 border p-5 rounded-lg ${isCompleted && 'opacity-40 line-through'} ${props.priority === 'high'
 			? 'bg-red-600/10 border-red-300'
@@ -18,17 +24,22 @@ const TaskDisplayCard = (props: Props) => {
 				? 'bg-yellow-600/10 border-yellow-300'
 				: 'bg-gray-200/10 border-white'
 			}`} >
-			<div>
-				<h1 className="text-lg font-bold">{props.name}</h1>
-				<p className="text-md text-gray-400">{props.descreption}</p>
-				<p className="text-md">Priority:
-					<span className={`${props.priority == 'high'
-						? 'text-red-600'
-						: props.priority == 'medium'
-							? 'text-yellow-600'
-							: 'text-yellow-100'
-						} font-semibold`}> {props.priority}</span></p>
-			</div>
+			{!isEditing ? (
+				<div>
+					<h1 className="text-lg font-bold">{props.name}</h1>
+					<p className="text-md text-gray-400">{props.descreption}</p>
+					<p className="text-md">Priority:
+						<span className={`${props.priority == 'high'
+							? 'text-red-600'
+							: props.priority == 'medium'
+								? 'text-yellow-600'
+								: 'text-yellow-100'
+							} font-semibold`}> {props.priority}</span></p>
+				</div>
+			) : (
+				<EditTaskFrom key={props.id} id={props.id} onEdit={props.handleTaskEdit} name={props.name} description={props.descreption} priority={props.priority} />
+			)
+			}
 			<div className="flex flex-col gap-2">
 				<Tooltip>
 					<TooltipTrigger asChild>
@@ -44,8 +55,8 @@ const TaskDisplayCard = (props: Props) => {
 
 				<Tooltip>
 					<TooltipTrigger asChild>
-						<Button variant="outline" size="icon" onClick={() => { setIsCompleted(!isCompleted) }}>
-							{!isCompleted
+						<Button variant="outline" size="icon" onClick={() => { setIsEditing(!isEditing) }}>
+							{!isEditing
 								? <Pen size={10} />
 								: <CircleX />
 							}

@@ -67,7 +67,7 @@ const TaskCreateForm = (prop: Prop) => {
       />
 
       <Label className="text-sm text-gray-300 mb-1">Priority:</Label>
-      <RadioGroup value={taskPriority} className="flex justify-evenly mb-3" onValueChange={(value) => setTaskPriority(value)}>
+      <RadioGroup value={taskPriority} className="flex justify-evenly mb-3" onValueChange={(value: TaskPriority) => setTaskPriority(value)}>
         <div className="flex justify-center items-center gap-2">
           <RadioGroupItem value={TaskPriority.Low} id="p1" />
           <Label htmlFor="p1">Low</Label>
