@@ -1,6 +1,9 @@
 import MovieCard from "@/components/custom/MovieCard";
 import ProfileCard from "@/components/custom/ProfileCard";
+import { Button } from "@/components/ui/button";
 import { profileData, books } from "@/lib/data";
+import { ChevronLeftIcon } from "lucide-react";
+import Link from "next/link";
 
 const SectionOne = () => {
   const date = new Date()
@@ -9,6 +12,12 @@ const SectionOne = () => {
   const trillerBooks = books.filter(each => each.genre === "triller");
   return (
     <div className="h-auto flex items-center flex-col">
+      <Button className="fixed top-3 left-5">
+        <Link href={"/"} className="flex items-center gap-2">
+          <ChevronLeftIcon />
+          Home
+        </Link>
+      </Button>
       <h1 className="font-bold text-3xl">1. Profile Card Component</h1>
       <div className="grid grid-cols-2 gap-4 max-h-2/4 max-w-3/4">
         {profileData.map((each) => (

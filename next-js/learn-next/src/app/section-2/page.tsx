@@ -11,6 +11,9 @@ import ThemeSwitcher from "./components/ThemeSwitcher";
 import Toggler from "./components/Toggler";
 import { Task } from "@/types/shared";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ChevronLeftIcon } from "lucide-react";
 
 const SectionTwo = () => {
 
@@ -22,6 +25,12 @@ const SectionTwo = () => {
 
   return (
     <div className="h-auto">
+      <Button className="fixed top-3 left-5">
+        <Link href={"/"} className="flex items-center gap-2">
+          <ChevronLeftIcon />
+          Home
+        </Link>
+      </Button>
       <div className="h-screen mb-20">
         <h1 className="font-bold text-3xl text-center">Learn useState</h1>
         <div className="grid grid-cols-2 gap-3 h-full">
