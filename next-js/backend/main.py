@@ -1,10 +1,12 @@
 from uuid import UUID
 from typing import List
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from backend.models import TodoTask
 from backend.schemas import TaskRead, Task, TaskUpdate
 from backend.core.db import get_session, Base, engine
+from backend.utils import return_with_delay
 
 Base.metadata.create_all(bind=engine)
 
@@ -112,3 +114,10 @@ def delete_task(id: UUID, session=Depends(get_session)):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e)
         )
+
+
+@app.get("/stream")
+def streaming_response():
+    return StreamingResponse(
+        content=return_with_delay(), media_type="text/event-stream"
+    )
