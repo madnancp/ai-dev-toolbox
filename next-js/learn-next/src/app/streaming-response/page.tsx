@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { getStreamingResponse } from "@/services/streaming.service";
-import { ChevronLeftIcon } from "lucide-react";
+import { ChevronLeftIcon, Loader } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -16,10 +16,10 @@ const StreamingResponse = () => {
       setData((prev) => prev + " " + chunk);
     });
 
-    // Cleanup function on unmount or isStart change
     return () => {
       cleanup();
     };
+
   }, [isStart]);
 
   return (
@@ -32,7 +32,12 @@ const StreamingResponse = () => {
       </Button>
 
       <div className="my-30 max-w-3/4">
-        <Button variant={"outline"} onClick={() => { setIsStart(true) }}>Start Stream</Button>
+        <Button variant={"outline"} onClick={() => { setIsStart(true) }}>
+          Start Stream
+          {isStart && (
+            <Loader className="animate-spin" />
+          )}
+        </Button>
 
         {isStart && (
           <div className="min-w-3/4 mt-5">
