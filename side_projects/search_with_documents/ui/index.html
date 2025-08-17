@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <title>Document Searcher</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="px-10 bg-black">
+    <h1 class="text-7xl font-bold text-center text-white">
+      Document Searcher 🔍
+    </h1>
+
+    <!-- <main class="max-w-4xl mx-auto px-9 mt-20"> -->
+    <main class="grid grid-cols-2 gap-x-20 mt-20">
+      <section>
+        <h2
+          class="text-4xl font-bold text-start mb-10 text-orange-500 underline"
+        >
+          Upload your documents
+        </h2>
+        <form id="fileUploadForm">
+          <div>
+            <div class="flex items-center justify-center w-full">
+              <label
+                for="dropzone-file"
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+              >
+                <div
+                  class="flex flex-col items-center justify-center pt-5 pb-6"
+                >
+                  <p class="mb-2 text-sm text-white">
+                    <span class="font-semibold">Click to upload</span> or drag
+                    and drop
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-300">
+                    PDF, Text, or Markdown
+                  </p>
+                </div>
+                <input
+                  id="dropzone-file"
+                  type="file"
+                  class="hidden"
+                  accept="application/pdf, .md, text/plain"
+                />
+              </label>
+            </div>
+            <div class="flex justify-center items-center">
+              <button
+                class="my-10 w-full p-2 px-20 rounded-md bg-orange-500 hover:bg-orange-700 text-white cursor-pointer"
+              >
+                Upload
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <h2
+          class="text-4xl font-bold text-orange-500 text-start underline mb-10"
+        >
+          Your documents 📓
+        </h2>
+        <div
+          id="fileDataSection"
+          class="grid grid-cols-2 gap-5 border border-dotted p-5 rounded-lg border-orange-500 max-h-70 overflow-x-hidden overflow-y-auto"
+        >
+          <span class="text-md text-gray-300 hidden" id="docStatus"></span>
+        </div>
+      </section>
+
+      <section class="border border-stale-800 border-dashed">
+        <h2
+          class="text-4xl font-bold text-start mb-10 text-orange-500 underline"
+        >
+          Chat with your document 📃
+        </h2>
+
+        <form id="chatForm">
+          <textarea
+            class="bg-gray-500 outline-none text-white p-5 text-2xl w-full rounded-lg max-h-40"
+            placeholder="Ask ..."
+            id="promptArea"
+          ></textarea>
+          <button
+            class="mb-10 mt-4 w-full p-2 px-20 rounded-md bg-orange-500 hover:bg-orange-700 text-white cursor-pointer"
+            id="askBtn"
+          >
+            ask
+          </button>
+        </form>
+
+        <div id="resultField" class="text-2xl text-blue-300 hidden"></div>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

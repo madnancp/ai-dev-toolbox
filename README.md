@@ -1,6 +1,6 @@
 # Tools to cover-up
 
 - [x] FastAPI 
-- [ ] `Model Integration`
-- [ ] Local `Inference`
+- [x] `Model Integration`
+- [x] Local `Inference`
 - [ ] `CI/CD` Tools
